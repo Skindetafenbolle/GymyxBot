@@ -39,7 +39,8 @@ app.post('/send-message', async (req, res) => {
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
 
-    bot.sendMessage(chatId, 'Нажмите на кнопку ниже, чтобы поделиться своим номером телефона для авторизации.', {
+    bot.sendMessage(chatId, 'Здравствуйте!\n' +
+        'Чтобы получить доступ к своему профилю gymyx.ru внутри Telegram или создать новый, поделитесь своим номером телефона, пожалуйста 🙂', {
         reply_markup: {
             keyboard: [
                 [{ text: 'Поделиться контактом', request_contact: true }],
@@ -70,7 +71,11 @@ bot.on('contact', async (msg) => {
 
         const data = await response.json();
         if (response.ok) {
-            bot.sendMessage(chatId, 'Ваш номер телефона успешно отправлен и сохранен.');
+            await bot.sendMessage(chatId, 'Теперь все готово! Нажмите кнопку "Приложение" ниже, чтобы начать работу', {
+                reply_markup: {
+                    remove_keyboard: true
+                },
+            });
         } else {
             console.error('Ошибка на стороне API:', data);
             bot.sendMessage(chatId, 'Ошибка при отправке данных на сервер.');
