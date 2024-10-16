@@ -1,3 +1,2 @@
-npm i - установить все зависимости
-
+npm i
 node index.js
